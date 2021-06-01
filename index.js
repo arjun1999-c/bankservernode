@@ -68,22 +68,31 @@ app.post('/login', (req, res) => {
     })
     
     
+   
+    
+    
 });
 //POST.DEPOSIT
 app.post('/Deposit',authmiddleware,(req,res) => {
 console.log(req.session.currentuser);
 //console.log(req.body);
-    const result = dataservice.Deposit(req.body.acno, req.body.password,req.body.amount);
+ dataservice.Deposit(req.body.acno, req.body.password,req.body.amount)
+ .then(result=>{
     res.status(result.statusCode).json(result)
+ })
+    
  //console.log(res.status(result.statusCode).json(result));
     //res.send("THIS IS A POST METHOD")
 });
 //POST.WITHDRAW
 app.post('/Withdraw',authmiddleware,(req, res) => {
+    console.log(req.session.currentuser);
     //console.log(req.body);
 
-    const result = dataservice.Withdraw(req.body.acno, req.body.password,req.body.amount);
-    res.status(result.statusCode).json(result)
+     dataservice.Withdraw(req.body.acno, req.body.password,req.body.amount)
+     .then(result=>{
+        res.status(result.statusCode).json(result)
+     })
  //console.log(res.status(result.statusCode).json(result));
     //res.send("THIS IS A POST METHOD")
 });
